@@ -1,0 +1,33 @@
+<template id="user_training_search_template">
+    <div class="input-group mb-3">
+        <input v-model.lazy="user_query" @keyup.enter="searchUserTrainings" type="text" class="form-control" placeholder="Search existing Cayuse trainings by NetID..." aria-label="Recipient's username" aria-describedby="training-search-button-addon">
+        <button @click="searchUserTrainings" class="btn btn-outline-primary" type="button" id="training-search-button-addon">
+            <icon icon="fas fa-magnifying-glass"></icon> Search
+        </button>
+        <button @click="clearUserSearchResults" class="btn btn-outline-secondary" type="button" id="training-search-button-addon2">
+            <icon icon="fa-solid fa-xmark"></icon> Reset
+        </button>
+    </div>
+    <div class="user-search-results">
+        <div v-for="training in user_search_results" class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ training.trainingName }}
+                </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>id</b>: {{ training.id }}</li>
+                <li class="list-group-item"><b>completion</b>: {{ training.completionDate }}</li>
+                <li class="list-group-item"><b>expiration</b>: {{ training.expirationDate }}</li>
+                <li class="list-group-item"><b>created</b>: {{ training.createDate }}</li>
+                <li class="list-group-item"><b>updated</b>: {{ training.updateDate }}</li>
+            </ul>
+        </div>
+        <p v-if="user_searching">
+            <icon icon="fas fa-spinner" spin></icon> Searching &hellip;
+        </p>
+        <p v-if="user_query && user_search_performed && user_search_results.length === 0">
+            No Cayuse user trainings found for NetID &ldquo;{{ user_query }}&rdquo;
+        </p>
+    </div>
+</template>
