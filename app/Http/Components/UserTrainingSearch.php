@@ -20,7 +20,8 @@ class UserTrainingSearch
 
     public function search(string $query): array
     {
-        $user_search_result = (new UserSearch())->search($query);
+        $this->login();
+        $user_search_result = (new UserSearch())->setAuthenticator($this->auth)->search($query);
         $user_id = $user_search_result['people'][0]['id'] ?? false;
 
         if (!$user_id) {

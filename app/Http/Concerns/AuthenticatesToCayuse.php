@@ -2,63 +2,39 @@
 
 namespace App\Http\Concerns;
 
+use App\Http\Components\Authenticator;
 use Symfony\Component\HttpClient\HttpClient;
 
 trait AuthenticatesToCayuse
 {
-    public string $auth_server = '';
-    public string $auth_path = '/basicauth';
-    public string $auth_username = '';
-    public string $auth_password = '';
-    public string $auth_token = '';
-    public string $tenant_id = '';
+    public ?Authenticator $auth = null;
 
-    public function bootAuthenticatesToCayuse()
+    public function login(): bool
     {
-        $this->auth_server = getenv('CAYUSE_AUTH_SERVER') ?? '';
-        $this->auth_username = getenv('CAYUSE_USERNAME') ?? '';
-        $this->auth_password = getenv('CAYUSE_PASSWORD') ?? '';
-        $this->tenant_id = getenv('CAYUSE_TENANT_ID') ?? '';
-    }
-
-    public function authenticate(): bool
-    {
-        if (!($this->auth_server && $this->auth_username && $this->auth_password && $this->tenant_id)) {
-            $this->bootAuthenticatesToCayuse();
+        if (!($this->auth instanceof Authenticator)) {
+            $this->setAuthenticator();
         }
 
-        $this->auth_token = HttpClient::create()
-            ->request('GET', "{$this->auth_server}{$this->auth_path}", [
-                'auth_basic' => [$this->auth_username, $this->auth_password],
-                'query' => ['tenant_id' => $this->tenant_id],
-            ])
-            ->getContent();
-
-        return true;
+        return $this->auth->authenticate();
     }
 
-    public function isAuthenticated(): bool
+    public function setAuthenticator(Authenticator $auth = null): static
     {
-        return $this->auth_token !== '';
+        $this->auth = $auth ?? new Authenticator();
+
+        return $this;
     }
 
     public function authenticatedClientOptions(): array
     {
-        if (!$this->isAuthenticated()) {
-            $this->authenticate();
-        }
+        $this->login();
 
         return [
-            'auth_bearer' => $this->auth_token,
+            'auth_bearer' => $this->auth->auth_token,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'X-IDP-New-Login' => 'true',
             ],
         ];
-    }
-
-    public function logout(): void
-    {
-        $this->auth_token = '';
     }
 }
