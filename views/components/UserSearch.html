@@ -2,7 +2,7 @@
     <div class="input-group mb-3">
         <input v-model.lazy="user_query" @keyup.enter="searchUsers" type="text" class="form-control" placeholder="Search existing Cayuse users by NetID..." aria-label="Recipient's username" aria-describedby="user-search-button-addon">
         <button @click="searchUsers" class="btn btn-outline-primary" type="button" id="user-search-button-addon">
-            <icon icon="fas fa-magnifying-glass"></icon> Search
+            <icon icon="fas fa-magnifying-glass"></icon> Search Cayuse
         </button>
         <button @click="clearUserSearchResults" class="btn btn-outline-secondary" type="button" id="user-search-button-addon2">
             <icon icon="fa-solid fa-xmark"></icon> Reset
