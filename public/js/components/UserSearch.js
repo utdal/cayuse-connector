@@ -12,6 +12,27 @@ export default {
         }
     },
 
+    computed: {
+
+        readyToSearch() {
+            return !!this.user_query;
+        },
+
+        readyToReset() {
+            return this.readyToSearch || this.user_search_performed || this.user_search_results.length;
+        }
+
+    },
+
+    watch: {
+
+        user_query(new_query, old_query) {
+            this.user_search_performed = false;
+            this.user_search_results = [];
+        }
+
+    },
+
     methods: {
 
         searchUsers() {

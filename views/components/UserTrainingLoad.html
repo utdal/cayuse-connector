@@ -4,7 +4,13 @@
             <div class="form-label form-text">Select a training type:</div>
             <div v-if="got_training_types" class="mb-3">
                 <div v-for="training_type in training_types" :key="training_type.id" class="form-check">
-                    <input v-model="training_type_id" class="form-check-input" type="radio" :id="training_type.id" :value="training_type.id">
+                    <input
+                        v-model="training_type_id"
+                        class="form-check-input"
+                        type="radio"
+                        :id="training_type.id"
+                        :value="training_type.id"
+                    >
                     <label class="form-check-label" :for="training_type.id">{{ training_type.name }}</label>
                 </div>
             </div>
@@ -26,10 +32,20 @@
                     id="user_training_load_file"
                     accept=".csv,text/csv,text/comma-separated-values,text/plain"
                 >
-                <button @click="loadUserTrainings" type="button" class="btn btn-outline-primary" :disabled="!readyToLoad">
+                <button
+                    @click="loadUserTrainings"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    :disabled="!readyToLoad"
+                >
                     <icon icon="fa-solid fa-cloud-arrow-up"></icon> Load to Cayuse
                 </button>
-                <button @click="clearResults" type="button" class="btn btn-outline-secondary">
+                <button
+                    @click="clearResults"
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    :disabled="!readyToReset"
+                >
                     <icon icon="fa-solid fa-xmark"></icon> Reset
                 </button>
             </div>
@@ -44,7 +60,11 @@
                     <icon icon="fa-solid fa-cloud-arrow-up" bounce></icon> Loading trainings &hellip;
                 </p>
                 <p v-if="got_results">
-                    <icon icon="fa-solid fa-flag-checkered" :style="{'--fa-animation-iteration-count': '1'}" shake></icon> Done!
+                    <icon
+                        icon="fa-solid fa-flag-checkered"
+                        :style="{'--fa-animation-iteration-count': '1', '--fa-animation-duration': '3s'}"
+                        shake
+                    ></icon> Done!
                 </p>
             </div>
         </div>

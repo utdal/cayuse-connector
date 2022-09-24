@@ -30,6 +30,6 @@ class UserTrainingSearch
 
         return HttpClient::create($this->authenticatedClientOptions())
             ->request('GET', $this->api_server . sprintf($this->api_path, $user_id))
-            ->toArray() + ['user_id' => $user_id];
+            ->toArray() + ['user' => ($user_search_result['people'][0] ?? null)];
     }
 }

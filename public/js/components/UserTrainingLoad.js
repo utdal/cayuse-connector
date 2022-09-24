@@ -25,6 +25,10 @@ export default {
             return !!this.training_file && !!this.training_type_id;
         },
 
+        readyToReset() {
+            return !!this.training_file || !!this.training_type_id || this.got_results || this.results.length;
+        }
+
     },
 
     mounted() {
