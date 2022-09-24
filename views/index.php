@@ -10,7 +10,7 @@
     <script type="importmap">
         {
             "imports": {
-                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser<?= str_starts_with(getenv('APP_ENV'), 'prod') ? '.prod' : '' ?>.js",
                 "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js",
                 "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.esm.min.js",
                 "@fortawesome/fontawesome-svg-core": "https://ga.jspm.io/npm:@fortawesome/fontawesome-svg-core@6.2.0/index.mjs",
