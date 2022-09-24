@@ -57,6 +57,8 @@
 <script>
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user_search";
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training_search";
+    var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
+    var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";
 </script>
 <script type="module" src="<?= $request->getBasePath() ?>/js/app.js?v=<?= APP_VERSION ?>"></script>
 </body>

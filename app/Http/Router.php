@@ -17,6 +17,8 @@ class Router
         '/' => 'index',
         '/api/v1/user_search' => 'userSearch',
         '/api/v1/user_training_search' => 'userTrainingSearch',
+        '/api/v1/user_training/load' => 'userTrainingLoad',
+        '/api/v1/user_training_types' => 'userTrainingTypes',
     ];
 
     public function handle(): Response
