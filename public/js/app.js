@@ -6,6 +6,7 @@ import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import UserSearch from "./components/UserSearch.js";
+import UserAffiliationSearch from "./components/UserAffiliationSearch.js";
 import UserTrainingSearch from "./components/UserTrainingSearch.js";
 import UserTrainingLoad from "./components/UserTrainingLoad.js";
 
@@ -15,6 +16,7 @@ const app = createApp({
 
     components: {
         UserSearch,
+        UserAffiliationSearch,
         UserTrainingSearch,
         UserTrainingLoad,
     }

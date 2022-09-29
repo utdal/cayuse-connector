@@ -34,20 +34,23 @@
 
     <hr>
 
-    <section class="user-search my-5">
-        <h2 class="display-5 text-center">Users</h2>
+    <section class="cayuse-search my-5">
+        <h2 class="display-5 text-center">Search</h2>
 
         <h3>Search users</h3>
         <user-search></user-search>
-    </section>
 
-    <section class="user-training-search my-5">
-        <h2 class="display-5 text-center">Trainings</h2>
+        <h3>Search affiliations</h3>
+        <user-affiliation-search></user-affiliation-search>
 
         <h3>Search trainings</h3>
         <user-training-search></user-training-search>
+    </section>
+
+    <section class="cayuse-load my-5">
+        <h2 class="display-5 text-center">Update</h2>
         
-        <h3>Bulk load trainings</h3>
+        <h3>Bulk load user trainings</h3>
         <user-training-load></user-training-load>
 
     </section>
@@ -56,6 +59,7 @@
 
 <script>
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user_search";
+    var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation_search";
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training_search";
     var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
     var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";

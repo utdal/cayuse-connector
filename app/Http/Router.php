@@ -16,6 +16,7 @@ class Router
     public array $routes = [
         '/' => 'index',
         '/api/v1/user_search' => 'userSearch',
+        '/api/v1/user_affiliation_search' => 'userAffiliationSearch',
         '/api/v1/user_training_search' => 'userTrainingSearch',
         '/api/v1/user_training/load' => 'userTrainingLoad',
         '/api/v1/user_training_types' => 'userTrainingTypes',
