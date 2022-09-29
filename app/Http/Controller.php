@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Files\CsvReader;
+use App\Http\Components\UnitSearch;
 use App\Http\Components\UserAffiliationSearch;
 use App\Http\Components\UserSearch;
 use App\Http\Components\UserTrainingLoader;
@@ -46,6 +47,13 @@ class Controller
         $user_query = $request->query->get('user_query');
 
         $result = (new UserTrainingSearch())->search($user_query);
+
+        return new JsonResponse($result);
+    }
+
+    public function unitSearch(Request $request): Response
+    {
+        $result = (new UnitSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }

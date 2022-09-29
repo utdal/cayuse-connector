@@ -1,0 +1,69 @@
+<template id="unit_search_template">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Name</span>
+        <input
+            v-model="unit_name"
+            @keyup.enter="searchUnits"
+            type="text"
+            class="form-control"
+            aria-label="unit name"
+            aria-describedby="unit-search-button-addon"
+        >
+        <span class="input-group-text">Code</span>
+        <input
+            v-model="unit_code"
+            @keyup.enter="searchUnits"
+            type="text"
+            class="form-control"
+            aria-label="unit code"
+            aria-describedby="unit-search-button-addon"
+        >
+        <button
+            @click="searchUnits"
+            class="btn btn-outline-primary"
+            type="button"
+            id="unit-search-button-addon"
+            :disabled="!readyToSearch"
+        >
+            <icon icon="fa-solid fa-magnifying-glass"></icon> Search Cayuse
+        </button>
+        <button
+            @click="clearUnitSearchResults"
+            class="btn btn-outline-secondary"
+            type="button"
+            id="unit-search-button-addon2"
+            :disabled="!readyToReset"
+        >
+            <icon icon="fa-solid fa-xmark"></icon> Reset
+        </button>
+    </div>
+    <div class="unit-search-results">
+        <p v-if="unit_searching">
+            <icon
+                icon="fa-solid fa-magnifying-glass"
+                :style="{'--fa-beat-fade-opacity': '0.05', '--fa-beat-fade-scale': '1.25', '--fa-animation-duration': '0.7s'}"
+                beat-fade
+            ></icon> Searching &hellip;
+        </p>
+        <p v-if="unit_query && unit_search_performed && unit_search_results.length === 0">
+            <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse units found with that name or code;
+        </p>
+        <div v-for="unit in unit_search_results" class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ unit.unitName }}
+                </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>id</b>: {{ unit.id }}</li>
+                <li class="list-group-item"><b>unit name</b>: {{ unit.unitName }}</li>
+                <li class="list-group-item"><b>short name</b>: {{ unit.shortName }}</li>
+                <li class="list-group-item"><b>primary code</b>: {{ unit.primaryCode }}</li>
+                <li class="list-group-item"><b>type</b>: {{ unit.unitTypeName }}</li>
+                <li class="list-group-item"><b>active</b>: {{ unit.active }}</li>
+                <li class="list-group-item"><b>created</b>: {{ unit.createDate }}</li>
+                <li class="list-group-item"><b>updated</b>: {{ unit.updateDate }}</li>
+            </ul>
+        </div>
+    </div>
+</template>

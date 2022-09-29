@@ -5,6 +5,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons"
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import UnitSearch from "./components/UnitSearch.js";
 import UserSearch from "./components/UserSearch.js";
 import UserAffiliationSearch from "./components/UserAffiliationSearch.js";
 import UserTrainingSearch from "./components/UserTrainingSearch.js";
@@ -15,6 +16,7 @@ library.add(far, fas, fab)
 const app = createApp({
 
     components: {
+        UnitSearch,
         UserSearch,
         UserAffiliationSearch,
         UserTrainingSearch,

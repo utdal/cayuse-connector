@@ -45,6 +45,10 @@
 
         <h3>Search trainings</h3>
         <user-training-search></user-training-search>
+
+        <h3>Search units</h3>
+        <unit-search></unit-search>
+
     </section>
 
     <section class="cayuse-load my-5">
@@ -58,6 +62,7 @@
 </main>
 
 <script>
+    var unit_search_url = "<?= $request->getBasePath() ?>/api/v1/unit_search";
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user_search";
     var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation_search";
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training_search";
