@@ -18,18 +18,19 @@ class UserTrainingSearch
         $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
     }
 
-    public function search(string $query): array
+    public function search(array $queries): array
     {
         $this->login();
-        $user_search_result = (new UserSearch())->setAuthenticator($this->auth)->search($query);
-        $user_id = $user_search_result['people'][0]['id'] ?? false;
+        $user_search_result = (new UserSearch())->setAuthenticator($this->auth)->search($queries);
 
-        if (!$user_id) {
-            return [];
-        }
+        array_walk($user_search_result['people'], function(&$user) {
+            if (isset($user['id'])) {
+                $user['trainings'] = HttpClient::create($this->authenticatedClientOptions())
+                    ->request('GET', $this->api_server . sprintf($this->api_path, $user['id']))
+                    ->toArray();
+            }
+        });
 
-        return HttpClient::create($this->authenticatedClientOptions())
-            ->request('GET', $this->api_server . sprintf($this->api_path, $user_id))
-            ->toArray() + ['user' => ($user_search_result['people'][0] ?? null)];
+        return $user_search_result;
     }
 }

@@ -40,8 +40,8 @@ class UserTrainingLoader
 
         // check for existing user training
         $user_training_search_result = $this->searchUserTrainings($user_employeeId);
-        $user_id = $user_training_search_result['user']['id'] ?? false;
-        $existing_trainings = $user_training_search_result['trainings'] ?? [];
+        $user_id = $user_training_search_result['people'][0]['id'] ?? false;
+        $existing_trainings = $user_training_search_result['people'][0]['trainings']['trainings'] ?? [];
 
         if (!$user_id) {
             return $this->error("Unable to find user $name ($user_employeeId) in Cayuse.");
@@ -99,7 +99,7 @@ class UserTrainingLoader
     {
         return (new UserTrainingSearch())
             ->setAuthenticator($this->auth)
-            ->search($user_employeeId);
+            ->search(['id' => $user_employeeId]);
     }
 
     public function existingTraining(array $existing_trainings): ?array

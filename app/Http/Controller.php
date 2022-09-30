@@ -24,41 +24,35 @@ class Controller
         return $this->view('index', request: $request);
     }
 
-    public function userSearch(Request $request): Response
+    public function userSearch(Request $request): JsonResponse
     {
-        $user_query = $request->query->get('user_query');
-
-        $result = (new UserSearch())->search($user_query);
+        $result = (new UserSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }
 
-    public function userAffiliationSearch(Request $request): Response
+    public function userAffiliationSearch(Request $request): JsonResponse
     {
-        $user_query = $request->query->get('user_query');
-
-        $result = (new UserAffiliationSearch())->search($user_query);
+        $result = (new UserAffiliationSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }
 
-    public function userTrainingSearch(Request $request): Response
+    public function userTrainingSearch(Request $request): JsonResponse
     {
-        $user_query = $request->query->get('user_query');
-
-        $result = (new UserTrainingSearch())->search($user_query);
+        $result = (new UserTrainingSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }
 
-    public function unitSearch(Request $request): Response
+    public function unitSearch(Request $request): JsonResponse
     {
         $result = (new UnitSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }
 
-    public function userTrainingTypes(Request $request): Response
+    public function userTrainingTypes(Request $request): JsonResponse
     {
         return new JsonResponse([
             'training_types' => (new UserTrainingTypesSearch())->search('', true)['training-types'] ?? [],

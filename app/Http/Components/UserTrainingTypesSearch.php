@@ -3,14 +3,20 @@
 namespace App\Http\Components;
 
 use App\Http\Concerns\AuthenticatesToCayuse;
+use App\Http\Concerns\HasSearchQuery;
 use Symfony\Component\HttpClient\HttpClient;
 
 class UserTrainingTypesSearch
 {
     use AuthenticatesToCayuse;
+    use HasSearchQuery;
 
     public string $api_server = '';
     public string $api_path = '/v1/training-types';
+    public array $api_search_queries = [
+        'name' => 'name',
+        'active' => 'active',
+    ];
 
     public function __construct()
     {
@@ -19,18 +25,12 @@ class UserTrainingTypesSearch
 
     public function search(string $name = '', ?bool $active = null): array
     {
-        $search = [];
-
-        if ($name) {
-            $search[] = "name:$name";
-        }
-        if ($active) {
-            $search[] = 'active:' . ($active ? 'true' : 'false');
-        }
-
         return HttpClient::create($this->authenticatedClientOptions())
             ->request('GET', "{$this->api_server}{$this->api_path}", [
-                'query' => count($search) ? ['search' => implode(',', $search)] : [],
+                'query' => $this->buildSearchQuery([
+                    'name' => $name,
+                    'active' => ($active ? 'true' : 'false'),
+                ]),
             ])
             ->toArray();
     }

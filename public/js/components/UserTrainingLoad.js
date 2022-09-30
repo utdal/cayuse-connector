@@ -22,11 +22,11 @@ export default {
     computed: {
 
         readyToLoad() {
-            return !!this.training_file && !!this.training_type_id;
+            return !!this.training_file && !!this.training_type_id && !this.getting_results;
         },
 
         readyToReset() {
-            return !!this.training_file || !!this.training_type_id || this.got_results || this.results.length;
+            return (!!this.training_file || !!this.training_type_id || this.got_results || this.results.length) && !this.getting_results;
         }
 
     },
@@ -58,6 +58,8 @@ export default {
         fileSelected(event) {
             if (!event.target.files.length) return;
             this.training_file = event.target.files[0];
+            this.got_results = false;
+            this.getting_results = false;
             this.results = [];
         },
 
@@ -86,6 +88,7 @@ export default {
                     this.readResults(stream.getReader());
                 })
                 .catch((error) => {
+                    this.getting_results = false;
                     this.showError('Error fetching training types: ' + error.message);
                 });
         },
@@ -93,6 +96,7 @@ export default {
         readResults(stream_reader) {
             stream_reader.read().then(({ value, done }) => {
                 if (done) {
+                    this.getting_results = false;
                     this.got_results = true;
                     return;
                 }

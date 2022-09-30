@@ -1,13 +1,31 @@
 <template id="user_affiliation_search_template">
     <div class="input-group mb-3">
+        <span class="input-group-text">First name</span>
         <input
-            v-model="user_query"
+            v-model="first_name"
             @keyup.enter="searchUserAffiliations"
             type="text"
             class="form-control"
-            placeholder="Search existing Cayuse affiliations by NetID..."
-            aria-label="Recipient's username"
-            aria-describedby="affiliation-search-button-addon"
+            aria-label="First name"
+            aria-describedby="user-search-button-addon"
+        >
+        <span class="input-group-text">Last name</span>
+        <input
+            v-model="last_name"
+            @keyup.enter="searchUserAffiliations"
+            type="text"
+            class="form-control"
+            aria-label="Last name"
+            aria-describedby="user-search-button-addon"
+        >
+        <span class="input-group-text">Employee ID</span>
+        <input
+            v-model="employee_id"
+            @keyup.enter="searchUserAffiliations"
+            type="text"
+            class="form-control"
+            aria-label="Employee ID"
+            aria-describedby="user-search-button-addon"
         >
         <button
             @click="searchUserAffiliations"
@@ -36,35 +54,38 @@
                 beat-fade
             ></icon> Searching &hellip;
         </p>
-        <div v-if="user_query && user_search_performed">
-            <p v-if="foundUser">
-                <icon icon="fa-solid fa-circle-check" class="text-success"></icon> Found Cayuse user {{ user_search_results_user.prefix }} {{ user_search_results_user.firstName }} {{ user_search_results_user.middleName }} {{ user_search_results_user.lastName }} {{ user_search_results_user.suffix }} ({{ user_search_results_user.employeeId }})
-            </p>
-            <p v-else>
-                <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse user found with employee id &ldquo;{{ user_query }}&rdquo;.
-            </p>
-            <p v-if="user_search_results.length === 0">
-                <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse user affiliations found for &ldquo;{{ user_query }}&rdquo;.
-            </p>
-        </div>
-        <div v-for="affiliation in user_search_results" :key="affiliation.id" class="card mb-3">
-            <div class="card-body">
+        <p v-if="user_query && user_search_performed && user_search_results.length === 0">
+            <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse users found with that name or id.
+        </p>
+        <div v-for="user in user_search_results" :key="user.id" class="card mb-3">
+            <div class="card-body bg-light">
                 <h5 class="card-title">
-                    {{ affiliation.title }}
+                    <icon icon="fa-solid fa-user"></icon> {{ user.prefix }} {{ user.firstName }} {{ user.middleName }} {{ user.lastName }} {{ user.suffix }}
+                    <span class="float-end fs-6 lh-base">{{ user.active ? 'active' : 'inactive' }}</span>
                 </h5>
+                <div v-for="affiliation in user?.['internal-affiliations']?.['internal-affiliations']" :key="affiliation.id" class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">
+                            <icon icon="fa-solid fa-building-user"></icon> <b>Affiliation:</b> {{ affiliation.title }} 
+                            <span v-if="affiliation.primaryAppointment" class="badge">primary</span>
+                            <span class="float-end fs-6 lh-base">{{ affiliation.active ? 'active' : 'inactive' }}</span>
+                        </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>start date:</b> {{ affiliation.startDate }} — <b>end date:</b> {{ affiliation.endDate }}</li>
+                        <li class="list-group-item"><b>unit id</b>: {{ affiliation.personId }}</li>
+                        <li class="list-group-item"><b>person id</b>: {{ affiliation.personId }}</li>
+                        <li class="list-group-item"><b>affiliation id</b>: {{ affiliation.id }}</li>
+                        <li class="list-group-item"><b>created</b>: {{ affiliation.createDate }}</li>
+                        <li class="list-group-item"><b>updated</b>: {{ affiliation.updateDate }}</li>
+                    </ul>
+                </div>
+                <div v-if="user?.['internal-affiliations']?.['internal-affiliations']?.length === 0" class="card mt-3">
+                    <div class="card-body">
+                        <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse user affiliations found.
+                    </div>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><b>affiliation id</b>: {{ affiliation.id }}</li>
-                <li class="list-group-item"><b>person id</b>: {{ affiliation.personId }}</li>
-                <li class="list-group-item"><b>unit id</b>: {{ affiliation.personId }}</li>
-                <li class="list-group-item"><b>active</b>: {{ affiliation.active ? 'yes' : 'no' }}</li>
-                <li class="list-group-item"><b>primary appointment</b>: {{ affiliation.primaryAppointment ? 'yes' : 'no' }}</li>
-                <li class="list-group-item"><b>title</b>: {{ affiliation.title }}</li>
-                <li class="list-group-item"><b>start date</b>: {{ affiliation.startDate }}</li>
-                <li class="list-group-item"><b>end date</b>: {{ affiliation.endDate }}</li>
-                <li class="list-group-item"><b>created</b>: {{ affiliation.createDate }}</li>
-                <li class="list-group-item"><b>updated</b>: {{ affiliation.updateDate }}</li>
-            </ul>
         </div>
     </div>
 </template>
