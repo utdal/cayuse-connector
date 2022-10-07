@@ -1,7 +1,7 @@
 <template id="user_training_load_template">
     <div class="row">
         <div class="col-sm-auto">
-            <div class="form-label form-text">Select a training type:</div>
+            <div class="form-label form-text">1. Select a training type:</div>
             <div v-if="got_training_types" class="mb-3">
                 <div v-for="training_type in training_types" :key="training_type.id" class="form-check">
                     <input
@@ -14,15 +14,18 @@
                     <label class="form-check-label" :for="training_type.id">{{ training_type.name }}</label>
                 </div>
             </div>
-            <div v-else-if="getting_training_types" class="mb-3">
-                <icon icon="fa-solid fa-spinner" spin></icon> Loading training types &hellip;
-            </div>
             <div v-else class="mb-3">
-                No training types loaded.
+                <button
+                    @click="getUserTrainingTypes"
+                    class="btn btn-outline-primary"
+                    :disabled="getting_training_types"
+                >
+                    <icon icon="fa-solid fa-cloud-arrow-down" :bounce="getting_training_types"></icon> Get Training Types
+                </button>
             </div>
         </div>
         <div class="col-sm">
-            <label for="user_training_load_file" class="form-label form-text">Select a CSV file of user trainings:</label>
+            <label for="user_training_load_file" class="form-label form-text">2. Select a CSV file of user trainings:</label>
             <div class="input-group mb-3">
                 <input
                     @change="fileSelected"
@@ -52,7 +55,7 @@
             <div class="results">
                 <p v-for="result in results">
                     <icon
-                        :icon="['fas', (result.status === 'ok') ? 'fa-circle-check' : 'fa-circle-xmark']"
+                        :icon="['fa-solid', (result.status === 'ok') ? 'fa-circle-check' : 'fa-circle-xmark']"
                         :class="(result.status === 'ok') ? 'text-success' : 'text-danger'"
                     ></icon> {{ result.message }}
                 </p>

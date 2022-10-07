@@ -31,10 +31,6 @@ export default {
 
     },
 
-    mounted() {
-        this.getUserTrainingTypes();
-    },
-
     methods: {
 
         getUserTrainingTypes() {
