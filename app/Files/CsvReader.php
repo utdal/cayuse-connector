@@ -38,7 +38,9 @@ class CsvReader
 
     public function toHtml(): string
     {
-        return (new HTMLConverter())->convert($this->rows, $this->reader->getHeader());
+        return (new HTMLConverter())
+            ->table('table table-striped')
+            ->convert($this->rows, $this->reader->getHeader());
     }
 
     public function toArray(): array

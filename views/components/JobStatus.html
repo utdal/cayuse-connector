@@ -1,0 +1,64 @@
+<template id="job_status_template">
+    <div class="row input-group job-status mt-2 gx-0">
+        <div class="col progress progress-bar-striped progress-bar-animated h-auto">
+            <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                aria-label="rows processed successfully"
+                :style="{'width': successPercent+'%'}"
+                :aria-valuenow="job_successes"
+                aria-valuemin="0"
+                :aria-valuemax="jobCount"
+            >
+                <span v-if="job_successes">{{ job_successes }}</span>
+            </div>
+            <div
+                class="progress-bar bg-danger"
+                role="progressbar"
+                aria-label="rows processed with errors"
+                :style="{'width': errorPercent+'%'}"
+                :aria-valuenow="30"
+                aria-valuemin="0"
+                :aria-valuemax="jobCount"
+            >
+                <span v-if="job_errors">{{ job_errors }}</span>
+            </div>
+        </div>
+        <div v-show="!job_completed" class="col-auto input-group-text">
+            <input
+                v-model="auto_check"
+                class="form-check-input mt-0"
+                type="checkbox"
+                value=""
+                aria-label="auto check"
+                aria-describedby="auto-check-label"
+                :disabled="job_completed"
+            >
+            <label class="ms-1" id="auto-check-label">
+                auto check <span v-if="auto_check">every</span>
+            </label>
+        </div>
+        <input
+            v-show="auto_check"
+            v-model="check_every"
+            type="text"
+            class="col-auto flex-grow-0 flex-shrink-0 form-control"
+            style="width: 3em"
+            aria-label="check every"
+            aria-describedby="check-every-label"
+        >
+        <span v-show="auto_check" class="col-auto input-group-text" id="check-every-label">seconds</span>
+        <button
+            @click="getJobStatus"
+            :class="['col-auto', 'btn', 'btn-sm', job_completed ? 'btn-outline-success' : 'btn-outline-primary']"
+            style="min-width: 10em"
+            type="button"
+            :id="jobId"
+            :disabled="!readyToCheck"
+        >
+            <span v-if="job_completed"><icon icon="fa-solid fa-circle-check"></icon> Completed!</span>
+            <span v-else-if="checking_status"><icon icon="fa-solid fa-rotate-right" spin></icon> Checking&hellip;</span>
+            <span v-else><icon icon="fa-solid fa-rotate-right"></icon> Check Status</span>
+        </button>
+    </div>
+</template>

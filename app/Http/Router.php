@@ -17,10 +17,13 @@ class Router
         '/' => 'index',
         '/api/v1/unit_search' => 'unitSearch',
         '/api/v1/user_search' => 'userSearch',
+        '/api/v1/user/load' => 'userLoad',
         '/api/v1/user_affiliation_search' => 'userAffiliationSearch',
         '/api/v1/user_training_search' => 'userTrainingSearch',
         '/api/v1/user_training/load' => 'userTrainingLoad',
         '/api/v1/user_training_types' => 'userTrainingTypes',
+        '/api/v1/job/status' => 'jobStatus',
+        '/api/v1/job/report' => 'jobReport',
     ];
 
     public function handle(): Response

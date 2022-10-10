@@ -57,6 +57,9 @@
         <h3>Bulk load user trainings</h3>
         <user-training-load></user-training-load>
 
+        <h3>Bulk load users</h3>
+        <user-load></user-load>
+
     </section>
 
 </main>
@@ -68,6 +71,9 @@
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training_search";
     var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
     var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";
+    var user_load_url = "<?= $request->getBasePath() ?>/api/v1/user/load";
+    var job_status_url = "<?= $request->getBasePath() ?>/api/v1/job/status";
+    var job_report_url = "<?= $request->getBasePath() ?>/api/v1/job/report";
 </script>
 <script type="module" src="<?= $request->getBasePath() ?>/js/app.js?v=<?= APP_VERSION ?>"></script>
 </body>

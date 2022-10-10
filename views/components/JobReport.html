@@ -1,0 +1,20 @@
+<template id="job_report_template">
+    <div class="job-report d-flex flex-column">
+        <button
+            @click="getJobReport"
+            class="btn btn-sm btn-outline-primary align-self-center"
+            style="min-width: 10em;"
+            type="button"
+            :id="jobId"
+            :disabled="!readyToCheck"
+        >
+            <span v-if="getting_report"><icon icon="fa-solid fa-cloud-arrow-down" bounce></icon> Getting Report&hellip;</span>
+            <span v-else><icon icon="fa-solid fa-cloud-arrow-down"></icon> Get Job Report</span>
+        </button>
+        <div
+            v-if="got_report"
+            v-html="reportHtml"
+            class="job-report-results"
+        ></div>
+    </div>
+</template>

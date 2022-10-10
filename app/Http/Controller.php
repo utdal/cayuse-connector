@@ -3,8 +3,10 @@
 namespace App\Http;
 
 use App\Files\CsvReader;
+use App\Http\Components\JobChecker;
 use App\Http\Components\UnitSearch;
 use App\Http\Components\UserAffiliationSearch;
+use App\Http\Components\UserLoader;
 use App\Http\Components\UserSearch;
 use App\Http\Components\UserTrainingLoader;
 use App\Http\Components\UserTrainingSearch;
@@ -75,5 +77,32 @@ class Controller
         }, 200, [
             'X-Accel-Buffering' => 'no' // disabled nginx FastCGI buffering
         ]);
+    }
+
+    public function userLoad(Request $request): JsonResponse
+    {
+        $users_file = $request->files->get('users');
+        $result = (new UserLoader())->load($users_file);
+        $result['count'] = (new CsvReader($users_file))->count();
+
+        return new JsonResponse($result);
+    }
+
+    public function jobStatus(Request $request): JsonResponse
+    {
+        $type = $request->query->get('type');
+        $job_id = $request->query->get('jobId');
+        $result = (new JobChecker('status', $type))->check($job_id);
+
+        return new JsonResponse($result);
+    }
+
+    public function jobReport(Request $request): JsonResponse
+    {
+        $type = $request->query->get('type');
+        $job_id = $request->query->get('jobId');
+        $result = (new JobChecker('report', $type))->check($job_id);
+
+        return new JsonResponse($result);
     }
 }
