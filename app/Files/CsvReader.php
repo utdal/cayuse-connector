@@ -5,17 +5,20 @@ namespace App\Files;
 use Iterator;
 use League\Csv\HTMLConverter;
 use League\Csv\Reader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class CsvReader
 {
-    public $file;
     public Reader $reader;
     public Iterator $rows;
 
-    public function __construct($file)
+    public function __construct(public UploadedFile|string $input)
     {
-        $this->file = $file;
-        $this->reader = Reader::createFromPath($file->getPathname());
+        if ($input instanceof UploadedFile) {
+            $this->reader = Reader::createFromPath($input->getPathname());
+        } elseif (is_string($input)) {
+            $this->reader = Reader::createFromString($input);
+        }
         $this->reader->setHeaderOffset(0);
         $this->rows = $this->reader->getRecords();
     }
