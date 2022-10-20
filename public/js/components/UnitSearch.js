@@ -3,7 +3,7 @@ export default {
 
     data() {
         return {
-            unit_search_url: (typeof unit_search_url === 'string') ? unit_search_url : '/unit_search',
+            unit_search_url: (typeof unit_search_url === 'string') ? unit_search_url : '/api/v1/unit',
             unit_name: '',
             unit_code: '',
             unit_search_results: [],

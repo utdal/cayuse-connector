@@ -3,7 +3,7 @@ export default {
 
     data() {
         return {
-            user_affiliation_search_url: (typeof user_affiliation_search_url === 'string') ? user_affiliation_search_url : '/user_affiliation_search',
+            user_affiliation_search_url: (typeof user_affiliation_search_url === 'string') ? user_affiliation_search_url : '/api/v1/user_affiliation',
             first_name: '',
             last_name: '',
             employee_id: '',

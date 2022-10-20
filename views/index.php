@@ -65,10 +65,10 @@
 </main>
 
 <script>
-    var unit_search_url = "<?= $request->getBasePath() ?>/api/v1/unit_search";
-    var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user_search";
-    var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation_search";
-    var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training_search";
+    var unit_search_url = "<?= $request->getBasePath() ?>/api/v1/unit";
+    var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user";
+    var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation";
+    var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training";
     var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
     var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";
     var user_load_url = "<?= $request->getBasePath() ?>/api/v1/user/load";

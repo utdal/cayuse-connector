@@ -3,7 +3,7 @@ export default {
 
     data() {
         return {
-            user_training_search_url: (typeof user_training_search_url === 'string') ? user_training_search_url : '/user_training_search',
+            user_training_search_url: (typeof user_training_search_url === 'string') ? user_training_search_url : '/api/v1/user_training',
             first_name: '',
             last_name: '',
             employee_id: '',
