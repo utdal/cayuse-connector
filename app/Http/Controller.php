@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Files\CsvReader;
 use App\Http\Components\JobChecker;
 use App\Http\Components\UnitSearch;
+use App\Http\Components\UserAffiliationLoader;
 use App\Http\Components\UserAffiliationSearch;
 use App\Http\Components\UserLoader;
 use App\Http\Components\UserSearch;
@@ -84,6 +85,15 @@ class Controller
         $users_file = $request->files->get('users');
         $result = (new UserLoader())->load($users_file);
         $result['count'] = (new CsvReader($users_file))->count();
+
+        return new JsonResponse($result);
+    }
+
+    public function userAffiliationLoad(Request $request): JsonResponse
+    {
+        $affiliations_file = $request->files->get('affiliations');
+        $result = (new UserAffiliationLoader())->load($affiliations_file);
+        $result['count'] = (new CsvReader($affiliations_file))->count();
 
         return new JsonResponse($result);
     }

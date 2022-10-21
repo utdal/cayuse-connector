@@ -19,6 +19,7 @@ class Router
         '/api/v1/user' => 'userSearch',
         '/api/v1/user/load' => 'userLoad',
         '/api/v1/user_affiliation' => 'userAffiliationSearch',
+        '/api/v1/user_affiliation/load' => 'userAffiliationLoad',
         '/api/v1/user_training' => 'userTrainingSearch',
         '/api/v1/user_training/load' => 'userTrainingLoad',
         '/api/v1/user_training_types' => 'userTrainingTypes',

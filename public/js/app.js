@@ -13,6 +13,7 @@ import UserAffiliationSearch from "./components/UserAffiliationSearch.js";
 import UserTrainingSearch from "./components/UserTrainingSearch.js";
 import UserTrainingLoad from "./components/UserTrainingLoad.js";
 import UserLoad from "./components/UserLoad.js";
+import UserAffiliationLoad from "./components/UserAffiliationLoad.js";
 
 library.add(far, fas, fab)
 
@@ -25,6 +26,7 @@ const app = createApp({
         UserTrainingSearch,
         UserTrainingLoad,
         UserLoad,
+        UserAffiliationLoad,
     }
 
 });
