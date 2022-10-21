@@ -33,7 +33,7 @@
                     <icon icon="fa-solid fa-cloud-arrow-up" bounce></icon> Loading users &hellip;
                 </p>
                 <p v-if="got_results">
-                    <icon icon="fa-solid fa-circle-check" class="text-success"></icon> {{ jobCount }} users uploaded and queued for processing <icon icon="fa-solid fa-arrow-turn-down"></icon>
+                    <icon icon="fa-solid fa-circle-check" class="text-success"></icon> {{ jobCount }} users uploaded and queued for processing (job id: {{ jobId }}) <icon icon="fa-solid fa-arrow-turn-down"></icon>
                     <job-status type="user" :job-id="jobId" :job-count="jobCount" @job-completed="showReport"></job-status>
                 </p>
                 <p v-if="got_results && show_report">
