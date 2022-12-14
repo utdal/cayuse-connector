@@ -36,7 +36,7 @@ class Router
         } catch (Exception $e) {
             $this->response = new Response(
                 $e->getMessage() ?: 'An error occurred',
-                $e->getCode() ?: 500,
+                ($e->getCode() >= 100 && $e->getCode() < 600) ? $e->getCode() : 500,
             );
         }
 
