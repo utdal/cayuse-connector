@@ -66,6 +66,9 @@
         <h3>Bulk load user affiliations</h3>
         <user-affiliation-load></user-affiliation-load>
 
+        <h3>Bulk load user roles</h3>
+        <user-role-load></user-role-load>
+
     </section>
 
 </main>
@@ -75,6 +78,7 @@
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user";
     var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation";
     var user_role_search_url = "<?= $request->getBasePath() ?>/api/v1/user_role";
+    var user_role_load_url = "<?= $request->getBasePath() ?>/api/v1/user_role/load";
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training";
     var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
     var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";

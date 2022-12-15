@@ -9,6 +9,7 @@ use App\Http\Components\UserAffiliationLoader;
 use App\Http\Components\UserAffiliationSearch;
 use App\Http\Components\UserAccountSearch;
 use App\Http\Components\UserLoader;
+use App\Http\Components\UserRoleLoader;
 use App\Http\Components\UserRoleSearch;
 use App\Http\Components\UserSearch;
 use App\Http\Components\UserTrainingLoader;
@@ -110,6 +111,15 @@ class Controller
         $affiliations_file = $request->files->get('affiliations');
         $result = (new UserAffiliationLoader())->load($affiliations_file);
         $result['count'] = (new CsvReader($affiliations_file))->count();
+
+        return new JsonResponse($result);
+    }
+
+    public function userRoleLoad(Request $request): JsonResponse
+    {
+        $roles_file = $request->files->get('roles');
+        $result = (new UserRoleLoader())->load($roles_file);
+        $result['count'] = (new CsvReader($roles_file))->count();
 
         return new JsonResponse($result);
     }

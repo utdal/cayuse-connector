@@ -11,6 +11,7 @@ import UnitSearch from "./components/UnitSearch.js";
 import UserSearch from "./components/UserSearch.js";
 import UserAffiliationSearch from "./components/UserAffiliationSearch.js";
 import UserRoleSearch from "./components/UserRoleSearch.js";
+import UserRoleLoad from "./components/UserRoleLoad.js";
 import UserTrainingSearch from "./components/UserTrainingSearch.js";
 import UserTrainingLoad from "./components/UserTrainingLoad.js";
 import UserLoad from "./components/UserLoad.js";
@@ -25,6 +26,7 @@ const app = createApp({
         UserSearch,
         UserAffiliationSearch,
         UserRoleSearch,
+        UserRoleLoad,
         UserTrainingSearch,
         UserTrainingLoad,
         UserLoad,
