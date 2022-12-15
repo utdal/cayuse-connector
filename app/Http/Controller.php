@@ -7,7 +7,9 @@ use App\Http\Components\JobChecker;
 use App\Http\Components\UnitSearch;
 use App\Http\Components\UserAffiliationLoader;
 use App\Http\Components\UserAffiliationSearch;
+use App\Http\Components\UserAccountSearch;
 use App\Http\Components\UserLoader;
+use App\Http\Components\UserRoleSearch;
 use App\Http\Components\UserSearch;
 use App\Http\Components\UserTrainingLoader;
 use App\Http\Components\UserTrainingSearch;
@@ -34,9 +36,23 @@ class Controller
         return new JsonResponse($result);
     }
 
+    public function userAccountSearch(Request $request): JsonResponse
+    {
+        $result = (new UserAccountSearch())->search($request->query->all());
+
+        return new JsonResponse($result);
+    }
+
     public function userAffiliationSearch(Request $request): JsonResponse
     {
         $result = (new UserAffiliationSearch())->search($request->query->all());
+
+        return new JsonResponse($result);
+    }
+
+    public function userRoleSearch(Request $request): JsonResponse
+    {
+        $result = (new UserRoleSearch())->search($request->query->all());
 
         return new JsonResponse($result);
     }

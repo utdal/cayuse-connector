@@ -43,6 +43,9 @@
         <h3>Search affiliations</h3>
         <user-affiliation-search></user-affiliation-search>
 
+        <h3>Search roles</h3>
+        <user-role-search></user-role-search>
+
         <h3>Search trainings</h3>
         <user-training-search></user-training-search>
 
@@ -71,6 +74,7 @@
     var unit_search_url = "<?= $request->getBasePath() ?>/api/v1/unit";
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user";
     var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation";
+    var user_role_search_url = "<?= $request->getBasePath() ?>/api/v1/user_role";
     var user_training_search_url = "<?= $request->getBasePath() ?>/api/v1/user_training";
     var user_training_types_url = "<?= $request->getBasePath() ?>/api/v1/user_training_types";
     var user_training_load_url = "<?= $request->getBasePath() ?>/api/v1/user_training/load";

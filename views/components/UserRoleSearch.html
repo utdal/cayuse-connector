@@ -1,0 +1,86 @@
+<template id="user_role_search_template">
+    <div class="input-group mb-3">
+        <span class="input-group-text">First name</span>
+        <input
+            v-model="first_name"
+            @keyup.enter="searchUserRoles"
+            type="text"
+            class="form-control"
+            aria-label="First name"
+            aria-describedby="user-search-button-addon"
+        >
+        <span class="input-group-text">Last name</span>
+        <input
+            v-model="last_name"
+            @keyup.enter="searchUserRoles"
+            type="text"
+            class="form-control"
+            aria-label="Last name"
+            aria-describedby="user-search-button-addon"
+        >
+        <span class="input-group-text">Employee ID</span>
+        <input
+            v-model="username"
+            @keyup.enter="searchUserRoles"
+            type="text"
+            class="form-control"
+            aria-label="Employee ID"
+            aria-describedby="user-search-button-addon"
+        >
+        <button
+            @click="searchUserRoles"
+            class="btn btn-outline-primary"
+            type="button"
+            id="training-search-button-addon"
+            :disabled="!readyToSearch"
+        >
+            <icon icon="fa-solid fa-magnifying-glass"></icon> Search Cayuse
+        </button>
+        <button
+            @click="clearUserSearchResults"
+            class="btn btn-outline-secondary"
+            type="button"
+            id="training-search-button-addon2"
+            :disabled="!readyToReset"
+        >
+            <icon icon="fa-solid fa-xmark"></icon> Reset
+        </button>
+    </div>
+    <div class="user-training-search-results">
+        <p v-if="user_searching">
+            <icon
+                icon="fa-solid fa-magnifying-glass"
+                :style="{'--fa-beat-fade-opacity': '0.05', '--fa-beat-fade-scale': '1.25', '--fa-animation-duration': '0.7s'}"
+                beat-fade
+            ></icon> Searching &hellip;
+        </p>
+        <p v-if="user_query && user_search_performed && user_search_results.length === 0">
+            <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse users found with that name or id.
+        </p>
+        <div v-for="user in user_search_results" class="card bg-light mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <icon icon="fa-solid fa-user"></icon> {{ user.prefix }} {{ user.firstName }} {{ user.middleName }} {{ user.lastName }} {{ user.suffix }} ( {{ user.username }})
+                    <span class="float-end fs-6 lh-base">{{ user.active ? 'active' : 'inactive' }}</span>
+                </h5>
+                <div v-for="role in user?.['roles']?.['user-group']" class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0">
+                            <icon icon="fa-solid fa-clipboard-check"></icon> {{ role.groupGroupName }}
+                        </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><b>id</b>: {{ role.groupId }}</li>
+                        <li class="list-group-item"><b>units</b>: {{ role.unitId }}</li>
+                        <li class="list-group-item"><b>sub-units</b>: {{ role.subunits ? 'Yes' : 'No' }}</li>
+                    </ul>
+                </div>
+                <div v-if="user?.['roles']?.['user-group']?.length === 0" class="card mt-3">
+                    <div class="card-body">
+                        <icon icon="fa-solid fa-circle-xmark" class="text-danger"></icon> No Cayuse user roles found.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
