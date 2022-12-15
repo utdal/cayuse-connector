@@ -20,7 +20,7 @@ export default {
         },
 
         readyToSearch() {
-            return !!this.unit_query && !this.user_searching;
+            return !!this.unit_query && !this.unit_searching;
         },
 
         readyToReset() {
