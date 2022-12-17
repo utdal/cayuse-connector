@@ -1,7 +1,85 @@
 <template id="user_role_load_template">
     <div class="row">
+        <div class="col-sm-auto">
+            <div class="form-label form-text">1. Select CSV type:</div>
+            <ul class="list-group mb-2">
+                <li class="list-group-item">
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="has_roles"
+                            id="has_roles1"
+                            value="roles"
+                            v-model="role_file_type"
+                        >
+                        <label class="form-check-label" for="has_roles1">
+                            Users w/roles
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="has_roles"
+                            id="has_roles2"
+                            value="users"
+                            v-model="role_file_type"
+                        >
+                        <label class="form-check-label" for="has_roles2">
+                            Users only
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div v-if="selectUserRoles" class="col-sm-12">
+            <div class="form-label form-text">1a. Select roles:</div>
+            <ul v-if="got_roles">
+                <li v-for="role in roles" :key="role" class="input-group mb-2">
+                    <span class="input-group-text" style="flex-basis: 50%;">
+                        <input
+                            v-model="selected_roles"
+                            class="form-check-input mt-0 me-2"
+                            type="checkbox"
+                            :id="role"
+                            :value="role"
+                        >
+                        <label class="form-check-label" :for="role">{{ role }}</label>
+                    </span>
+                    <span class="input-group-text" :id="role + '_code'">
+                        Unit Code
+                    </span>
+                    <input
+                        type="text"
+                        class="form-control"
+                        aria-label="Unit Code"
+                        :aria-describedby="role + '_code'"
+                        :data-role="role"
+                        :disabled="!selected_roles.includes(role)"
+                        @input="setUnitCode"
+                    >
+                    <span class="input-group-text">
+                        <input
+                            v-model="selected_subunits"
+                            class="form-check-input mt-0 me-2"
+                            type="checkbox"
+                            :id="role + '_sub_units'"
+                            :value="role"
+                            :disabled="!selected_unit_codes[role]"
+                        >
+                        <label class="form-check-label" :for="role + '_sub_units'">Include sub-units</label>
+                    </span>
+                </li>
+            </ul>
+            <ul v-else class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <icon icon="fa-solid fa-cloud-arrow-down" :bounce="getting_roles"></icon>
+                </li>
+            </ul>
+        </div>
         <div class="col-sm">
-            <label for="user_role_load_file" class="form-label form-text">Select a CSV file of user roles:</label>
+            <label for="user_role_load_file" class="form-label form-text">2. Select a CSV file of {{ role_file_type }}:</label>
             <div class="input-group mb-3">
                 <input
                     @change="fileSelected"

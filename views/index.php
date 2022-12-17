@@ -56,7 +56,7 @@
 
     <section class="cayuse-load my-5">
         <h2 class="display-5 text-center">Update</h2>
-        
+
         <h3>Bulk load user trainings</h3>
         <user-training-load></user-training-load>
 
@@ -74,6 +74,7 @@
 </main>
 
 <script>
+    var role_search_url = "<?= $request->getBasePath() ?>/api/v1/role";
     var unit_search_url = "<?= $request->getBasePath() ?>/api/v1/unit";
     var user_search_url = "<?= $request->getBasePath() ?>/api/v1/user";
     var user_affiliation_search_url = "<?= $request->getBasePath() ?>/api/v1/user_affiliation";

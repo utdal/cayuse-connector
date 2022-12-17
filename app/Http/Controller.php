@@ -16,6 +16,7 @@ use App\Http\Components\UserTrainingLoader;
 use App\Http\Components\UserTrainingSearch;
 use App\Http\Components\UserTrainingTypesSearch;
 use App\Http\Concerns\HasViews;
+use App\Models\UserRoleCollection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,13 @@ class Controller
     public function index(Request $request): Response
     {
         return $this->view('index', request: $request);
+    }
+
+    public function roleSearch(): JsonResponse
+    {
+        return new JsonResponse([
+            'roles' => array_map('trim', explode(',', getenv('CAYUSE_ROLES') ?? ''))
+        ]);
     }
 
     public function userSearch(Request $request): JsonResponse
@@ -119,7 +127,14 @@ class Controller
     public function userRoleLoad(Request $request): JsonResponse
     {
         $roles_file = $request->files->get('roles');
-        $result = (new UserRoleLoader())->load($roles_file);
+
+        $user_roles = new UserRoleCollection([
+            'roles' => $request->request->all('selected_roles'),
+            'unit_codes' => $request->request->all('selected_unit_codes'),
+            'subunits' => $request->request->all('selected_subunits'),
+        ]);
+
+        $result = (new UserRoleLoader())->load($roles_file, $user_roles);
         $result['count'] = (new CsvReader($roles_file))->count();
 
         return new JsonResponse($result);
