@@ -37,6 +37,7 @@ trait HasViews
     {
         foreach (scandir($this->component_path) ?: [] as $component) {
             if (str_ends_with($component, '.html')) {
+                echo PHP_EOL;
                 include("$this->component_path/$component");
             }
         }
