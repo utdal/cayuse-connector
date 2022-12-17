@@ -100,7 +100,8 @@ class Controller
     public function userLoad(Request $request): JsonResponse
     {
         $users_file = $request->files->get('users');
-        $result = (new UserLoader())->load($users_file);
+        $filter_columns = $request->request->getBoolean('filter_columns', true);
+        $result = (new UserLoader())->load($users_file, $filter_columns);
         $result['count'] = (new CsvReader($users_file))->count();
 
         return new JsonResponse($result);
