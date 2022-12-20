@@ -2,7 +2,6 @@
 
 namespace App\Http\Components;
 
-use App\Files\CsvReader;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Http\Concerns\FiltersCsvColumns;
 use Symfony\Component\HttpClient\HttpClient;

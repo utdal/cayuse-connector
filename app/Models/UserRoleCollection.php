@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use ArrayObject;
-
 class UserRoleCollection
 {
     public $roles = [];

@@ -4,9 +4,11 @@ namespace App\Http\Components;
 
 use App\Files\CsvReader;
 use App\Http\Concerns\AuthenticatesToCayuse;
-use Symfony\Component\HttpClient\Exception\ClientException;
-use Symfony\Component\HttpClient\Exception\JsonException;
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\{
+    Exception\ClientException,
+    Exception\JsonException,
+    HttpClient,
+};
 
 class JobChecker
 {

@@ -3,24 +3,28 @@
 namespace App\Http;
 
 use App\Files\CsvReader;
-use App\Http\Components\JobChecker;
-use App\Http\Components\UnitSearch;
-use App\Http\Components\UserAffiliationLoader;
-use App\Http\Components\UserAffiliationSearch;
-use App\Http\Components\UserAccountSearch;
-use App\Http\Components\UserLoader;
-use App\Http\Components\UserRoleLoader;
-use App\Http\Components\UserRoleSearch;
-use App\Http\Components\UserSearch;
-use App\Http\Components\UserTrainingLoader;
-use App\Http\Components\UserTrainingSearch;
-use App\Http\Components\UserTrainingTypesSearch;
+use App\Http\Components\{
+    JobChecker,
+    UnitSearch,
+    UserAffiliationLoader,
+    UserAffiliationSearch,
+    UserAccountSearch,
+    UserLoader,
+    UserRoleLoader,
+    UserRoleSearch,
+    UserSearch,
+    UserTrainingLoader,
+    UserTrainingSearch,
+    UserTrainingTypesSearch,
+};
 use App\Http\Concerns\HasViews;
 use App\Models\UserRoleCollection;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\{
+    JsonResponse,
+    Request,
+    Response,
+    StreamedResponse,
+};
 
 class Controller
 {

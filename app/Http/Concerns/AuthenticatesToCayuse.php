@@ -3,7 +3,6 @@
 namespace App\Http\Concerns;
 
 use App\Http\Components\Authenticator;
-use Symfony\Component\HttpClient\HttpClient;
 
 trait AuthenticatesToCayuse
 {
