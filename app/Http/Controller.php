@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Config\Config;
 use App\Files\CsvReader;
 use App\Http\Components\{
     JobChecker,
@@ -38,7 +39,7 @@ class Controller
     public function roleSearch(): JsonResponse
     {
         return new JsonResponse([
-            'roles' => array_map('trim', explode(',', getenv('CAYUSE_ROLES') ?? ''))
+            'roles' => array_map('trim', explode(',', Config::get('CAYUSE_ROLES') ?? ''))
         ]);
     }
 

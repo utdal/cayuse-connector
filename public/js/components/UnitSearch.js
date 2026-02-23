@@ -1,8 +1,11 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#unit_search_template',
 
     data() {
         return {
+            appSettingsStore,
             unit_search_url: (typeof unit_search_url === 'string') ? unit_search_url : '/api/v1/unit',
             unit_name: '',
             unit_code: '',
@@ -47,7 +50,13 @@ export default {
             this.unit_searching = true;
             this.unit_search_performed = false;
             this.unit_search_results = [];
-            fetch(`${this.unit_search_url}?${new URLSearchParams({name:this.unit_name, code:this.unit_code})}`)
+            const search_params = new URLSearchParams({
+                name: this.unit_name,
+                code: this.unit_code,
+                environment: this.appSettingsStore.cayuseEnvironment,
+            });
+
+            fetch(`${this.unit_search_url}?${search_params}`)
                 .then(response => {
                     if (!response.ok) throw Error(response.statusText);
                     return response.json();

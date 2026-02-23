@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Http\Components\UserAccountSearch;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use Symfony\Component\HttpClient\HttpClient;
@@ -15,7 +16,7 @@ class UserRoleSearch
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_API_SERVER') ?: '';
     }
 
     public function search(array $queries): array

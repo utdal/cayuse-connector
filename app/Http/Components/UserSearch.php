@@ -4,6 +4,7 @@ namespace App\Http\Components;
 
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Http\Concerns\HasSearchQuery;
+use App\Config\Config;
 use Symfony\Component\HttpClient\HttpClient;
 
 class UserSearch
@@ -21,7 +22,7 @@ class UserSearch
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_API_SERVER') ?: '';
     }
 
     public function search(array $queries): array
@@ -30,6 +31,6 @@ class UserSearch
             ->request('GET', "{$this->api_server}{$this->api_path}", [
                 'query' => $this->buildSearchQuery($queries),
             ])
-            ->toArray();
+            ->toArray() + ['env' => Config::get('CAYUSE_SERVER_ENVIRONMENT') ?: ''];
     }
 }

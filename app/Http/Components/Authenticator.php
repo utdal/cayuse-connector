@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use Symfony\Component\HttpClient\HttpClient;
 
 class Authenticator
@@ -15,10 +16,10 @@ class Authenticator
 
     public function __construct()
     {
-        $this->auth_server = getenv('CAYUSE_AUTH_SERVER') ?? '';
-        $this->auth_username = getenv('CAYUSE_USERNAME') ?? '';
-        $this->auth_password = getenv('CAYUSE_PASSWORD') ?? '';
-        $this->tenant_id = getenv('CAYUSE_TENANT_ID') ?? '';
+        $this->auth_server = Config::get('CAYUSE_AUTH_SERVER') ?? '';
+        $this->auth_username = Config::get('CAYUSE_USERNAME') ?? '';
+        $this->auth_password = Config::get('CAYUSE_PASSWORD') ?? '';
+        $this->tenant_id = Config::get('CAYUSE_TENANT_ID') ?? '';
     }
 
     public function authenticate(): bool

@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Http\Concerns\HasSearchQuery;
 use Symfony\Component\HttpClient\HttpClient;
@@ -20,7 +21,7 @@ class UserTrainingTypesSearch
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_API_SERVER') ?: '';
     }
 
     public function search(string $name = '', ?bool $active = null): array

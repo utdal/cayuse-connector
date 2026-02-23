@@ -1,3 +1,5 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#job_status_template',
 
@@ -18,6 +20,7 @@ export default {
 
     data() {
         return {
+            appSettingsStore,
             job_status_url: (typeof job_status_url === 'string') ? job_status_url : '/api/v1/job/status',
             job_status: '',
             job_completed: false,
@@ -97,7 +100,13 @@ export default {
             this.checking_status = true;
             this.checked_status = false;
             this.status = {};
-            fetch(`${this.job_status_url}?${new URLSearchParams({type: this.type, jobId: this.jobId})}`)
+            const search_params = new URLSearchParams({
+                type: this.type,
+                jobId: this.jobId,
+                environment: this.appSettingsStore.cayuseEnvironment,
+            });
+
+            fetch(`${this.job_status_url}?${search_params}`)
                 .then(response => {
                     if (!response.ok) throw Error(response.statusText);
                     return response.json();

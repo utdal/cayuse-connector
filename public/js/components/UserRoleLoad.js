@@ -1,8 +1,11 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#user_role_load_template',
 
     data() {
         return {
+            appSettingsStore,
             role_search_url: (typeof role_search_url === 'string') ? role_search_url : '/api/v1/role',
             user_role_load_url: (typeof user_role_load_url === 'string') ? user_role_load_url : '/api/v1/user_role/load',
             role_file: null,
@@ -105,6 +108,7 @@ export default {
 
             let form_data = new FormData();
             form_data.set('roles', this.role_file, this.role_file.name);
+            form_data.set('environment', this.appSettingsStore.cayuseEnvironment);
 
             if (this.selectUserRoles) {
                 this.selected_roles.forEach(role => form_data.append('selected_roles[]', role));

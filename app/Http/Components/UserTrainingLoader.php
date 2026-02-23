@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use Carbon\Carbon;
 use Symfony\Component\HttpClient\Exception\ClientException;
@@ -23,7 +24,7 @@ class UserTrainingLoader
 
     public function __construct(string $training_type)
     {
-        $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_API_SERVER') ?: '';
         $this->training_type_id = $training_type;
     }
 

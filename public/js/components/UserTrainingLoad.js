@@ -1,10 +1,12 @@
 import { ndjsonStream } from '../ndjsonstream.js';
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
 
 export default {
     template: '#user_training_load_template',
 
     data() {
         return {
+            appSettingsStore,
             user_training_types_url: (typeof user_training_types_url === 'string') ? user_training_types_url : '/user_training_types',
             user_training_load_url: (typeof user_training_load_url === 'string') ? user_training_load_url : '/user_training/load',
             training_types: [],
@@ -35,7 +37,11 @@ export default {
 
         getUserTrainingTypes() {
             this.getting_training_types = true;
-            fetch(this.user_training_types_url)
+            const search_params = new URLSearchParams({
+                environment: this.appSettingsStore.cayuseEnvironment,
+            });
+
+            fetch(`${this.user_training_types_url}?${search_params}`)
                 .then(response => {
                     if (!response.ok) throw Error(response.statusText);
                     return response.json();
@@ -71,6 +77,7 @@ export default {
             let form_data = new FormData();
             form_data.set('training', this.training_file, this.training_file.name);
             form_data.set('training_type', this.training_type_id);
+            form_data.set('environment', this.appSettingsStore.cayuseEnvironment);
 
             fetch(this.user_training_load_url, {
                 body: form_data,

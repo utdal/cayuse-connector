@@ -1,3 +1,6 @@
+<?php
+use App\Config\Config;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +13,7 @@
     <script type="importmap">
         {
             "imports": {
-                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser<?= str_starts_with(getenv('APP_ENV'), 'prod') ? '.prod' : '' ?>.js",
+                "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser<?= str_starts_with(Config::get('APP_ENV'), 'prod') ? '.prod' : '' ?>.js",
                 "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js",
                 "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.esm.min.js",
                 "@fortawesome/fontawesome-svg-core": "https://ga.jspm.io/npm:@fortawesome/fontawesome-svg-core@6.2.0/index.mjs",
@@ -29,8 +32,20 @@
 
 <main id="app" class="app container mt-3">
     <h1 class="display-4 text-center">
-        <icon icon="fa-solid fa-building-columns"></icon> <?= getenv('APP_NAME') ?? 'Us' ?> <icon icon="fa-solid fa-left-right"></icon> Cayuse <icon icon="fa-solid fa-horse"></icon>
+        <icon icon="fa-solid fa-building-columns"></icon> 
+        <span class="institution px-3">
+            <?= Config::get('APP_NAME') ?? 'Us' ?> 
+        </span>
+        <icon icon="fa-solid fa-left-right"></icon> 
+        <span class="cayuse px-3 me-4 position-relative">
+            Cayuse <span class="position-absolute top-0 start-100 translate-middle-x badge rounded-pill fs-6 text-bg-light"><?= Config::get('APP_ENV') ?></span> 
+        </span>
+        <icon icon="fa-solid fa-horse"></icon>
     </h1>
+
+    <section class="settings">
+        <app-settings initial-cayuse-environment="<?= Config::get('CAYUSE_SERVER_ENVIRONMENT') ?>"></app-settings>
+    </section>
 
     <hr>
 

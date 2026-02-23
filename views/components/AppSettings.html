@@ -1,0 +1,35 @@
+<template id="app_settings_template">
+    <div class="app-settings d-flex justify-content-center">
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+            <input
+                name="setting_environment"
+                value="UAT"
+                type="radio"
+                class="btn-check"
+                id="setting_environment_uat"
+                v-model="appSettingsStore.cayuseEnvironment"
+            >
+            <label
+                for="setting_environment_uat"
+                :class="['btn', this.isProd() ? 'btn-outline-secondary' : 'btn-outline-primary']"
+            >
+                UAT
+            </label>
+
+            <input
+                name="setting_environment"
+                value="production"
+                type="radio"
+                class="btn-check"
+                id="setting_environment_production"
+                v-model="appSettingsStore.cayuseEnvironment"
+            >
+            <label
+                for="setting_environment_production"
+                :class="['btn', this.isProd() ? 'btn-outline-primary' : 'btn-outline-secondary']"
+            >
+                Production
+            </label>
+        </div>
+    </div>
+</template>

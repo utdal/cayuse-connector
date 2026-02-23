@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Http\Components\UserSearch;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Http\Concerns\FixesJson;
@@ -18,7 +19,7 @@ class UserTrainingSearch
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_API_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_API_SERVER') ?: '';
     }
 
     public function search(array $queries): array

@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Files\CsvReader;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Models\UserRoleCollection;
@@ -24,7 +25,7 @@ class UserRoleLoader
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_HR_CONNECT_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_HR_CONNECT_SERVER') ?: '';
     }
 
     public function load(UploadedFile $file, UserRoleCollection $roles): array

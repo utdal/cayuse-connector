@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use App\Http\Concerns\FiltersCsvColumns;
 use Symfony\Component\HttpClient\HttpClient;
@@ -69,7 +70,7 @@ class UserAffiliationLoader
 
     public function __construct()
     {
-        $this->api_server = getenv('CAYUSE_HR_CONNECT_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_HR_CONNECT_SERVER') ?: '';
     }
 
     public function load(UploadedFile $file, bool $filter_columns = true): array

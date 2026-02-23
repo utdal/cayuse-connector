@@ -2,6 +2,7 @@
 
 namespace App\Http\Components;
 
+use App\Config\Config;
 use App\Files\CsvReader;
 use App\Http\Concerns\AuthenticatesToCayuse;
 use Symfony\Component\HttpClient\{
@@ -19,7 +20,7 @@ class JobChecker
 
     public function __construct(public string $check_type, public string $job_type)
     {
-        $this->api_server = getenv('CAYUSE_HR_CONNECT_SERVER') ?? '';
+        $this->api_server = Config::get('CAYUSE_HR_CONNECT_SERVER') ?: '';
     }
 
     public function check(string $job_id): array

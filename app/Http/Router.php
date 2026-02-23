@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Exceptions\NotFoundHttpException;
 use App\Http\Controller;
+use App\Http\Middleware\SetsEnvironment;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,12 +32,22 @@ class Router
         '/api/v1/job/report' => 'jobReport',
     ];
 
+    public array $middleware = [
+        SetsEnvironment::class,
+    ];
+
     public function handle(): Response
     {
         $this->request = Request::createFromGlobals();
 
         try {
-            $this->response = call_user_func($this->action(), $this->request);
+            $action = $this->action();
+
+            foreach ($this->middleware as $middleware) {
+                $action = fn(Request $request) => (new $middleware())->process($request, $action);
+            }
+
+            $this->response = $action($this->request);
         } catch (Exception $e) {
             $this->response = new Response(
                 $e->getMessage() ?: 'An error occurred',

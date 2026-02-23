@@ -1,8 +1,11 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#user_load_template',
 
     data() {
         return {
+            appSettingsStore,
             user_load_url: (typeof user_load_url === 'string') ? user_load_url : '/api/v1/user/load',
             user_file: null,
             results: {},
@@ -54,6 +57,7 @@ export default {
 
             let form_data = new FormData();
             form_data.set('users', this.user_file, this.user_file.name);
+            form_data.set('environment', this.appSettingsStore.cayuseEnvironment);
 
             fetch(this.user_load_url, {
                 body: form_data,

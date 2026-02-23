@@ -1,3 +1,5 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#job_report_template',
 
@@ -14,6 +16,7 @@ export default {
 
     data() {
         return {
+            appSettingsStore,
             job_report_url: (typeof job_report_url === 'string') ? job_report_url : '/api/v1/job/report',
             report: {},
             getting_report: false,
@@ -41,7 +44,13 @@ export default {
             this.getting_report = true;
             this.got_report = false;
             this.report = {};
-            fetch(`${this.job_report_url}?${new URLSearchParams({type: this.type, jobId: this.jobId})}`)
+            const search_params = new URLSearchParams({
+                type: this.type,
+                jobId: this.jobId,
+                environment: this.appSettingsStore.cayuseEnvironment,
+            });
+
+            fetch(`${this.job_report_url}?${search_params}`)
                 .then(response => {
                     if (!response.ok) throw Error(response.statusText);
                     return response.json();

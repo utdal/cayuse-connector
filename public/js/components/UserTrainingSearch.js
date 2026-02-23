@@ -1,8 +1,11 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#user_training_search_template',
 
     data() {
         return {
+            appSettingsStore,
             user_training_search_url: (typeof user_training_search_url === 'string') ? user_training_search_url : '/api/v1/user_training',
             first_name: '',
             last_name: '',
@@ -58,6 +61,7 @@ export default {
                 id: this.employee_id,
                 first: this.first_name,
                 last: this.last_name,
+                environment: this.appSettingsStore.cayuseEnvironment,
             });
 
             fetch(`${this.user_training_search_url}?${search_params}`)

@@ -1,8 +1,11 @@
+import { appSettingsStore } from "../stores/AppSettingsStore.js";
+
 export default {
     template: '#user_affiliation_load_template',
 
     data() {
         return {
+            appSettingsStore,
             user_affiliation_load_url: (typeof user_affiliation_load_url === 'string') ? user_affiliation_load_url : '/api/v1/user_affiliation/load',
             affiliation_file: null,
             results: {},
@@ -54,6 +57,7 @@ export default {
 
             let form_data = new FormData();
             form_data.set('affiliations', this.affiliation_file, this.affiliation_file.name);
+            form_data.set('environment', this.appSettingsStore.cayuseEnvironment);
 
             fetch(this.user_affiliation_load_url, {
                 body: form_data,
