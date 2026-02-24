@@ -62,7 +62,14 @@ class Router
 
     public function action(): callable
     {
-        $action = $this->routes[$this->request->getPathInfo()] ?? false;
+        $request_path = $this->request->getPathInfo();
+        $base_path = $this->request->getBasePath();
+
+        if (str_starts_with($request_path, $base_path)) {
+            $request_path = substr($request_path, strlen($base_path));
+        }
+
+        $action = $this->routes[$request_path] ?? false;
 
         if (!$action) {
             throw new NotFoundHttpException();
